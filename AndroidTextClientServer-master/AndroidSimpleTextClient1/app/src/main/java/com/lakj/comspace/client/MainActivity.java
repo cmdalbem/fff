@@ -22,6 +22,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -33,9 +35,10 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     private TextView aTextView;
     private Switch aSwitch;
+    private SeekBar aSeekBar;
     private SensorManager sManager;
 
-    private static final int REFRESH_RATE_MS = 50;
+    private static int refreshRateMs = 20;
     private static final String DEFAULT_SERVER_ADDRESS = "192.168.43.106";
 
     private float orientX, orientY, orientZ;
@@ -52,7 +55,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
             // Order new refresh
             if(aSwitch.isChecked()) {
-                mHandler.sendEmptyMessageDelayed(0, REFRESH_RATE_MS);
+                mHandler.sendEmptyMessageDelayed(0, refreshRateMs);
             }
         }
     };
@@ -75,7 +78,10 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         aSwitch = (Switch) findViewById(R.id.switch1);
 
-        mHandler.sendEmptyMessageDelayed(0, REFRESH_RATE_MS);
+//        aSeekBar = (SeekBar) findViewById((R.id.seekBar));
+//        aSeekBar.setProgress(refreshRateMs);
+
+        mHandler.sendEmptyMessageDelayed(0, refreshRateMs);
 
 
 //        upButton = (Button) findViewById(R.id.upArrow);
@@ -93,7 +99,7 @@ public class MainActivity extends Activity implements SensorEventListener {
         boolean on = ((Switch) view).isChecked();
 
         if (on) {
-            mHandler.sendEmptyMessageDelayed(0, REFRESH_RATE_MS);
+            mHandler.sendEmptyMessageDelayed(0, refreshRateMs);
         } else {
             // Nothing.
         }

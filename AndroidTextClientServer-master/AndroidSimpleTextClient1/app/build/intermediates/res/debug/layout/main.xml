@@ -44,4 +44,17 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+    <SeekBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar"
+        android:layout_below="@+id/switch1"
+        android:layout_alignLeft="@+id/switch1"
+        android:layout_alignStart="@+id/switch1"
+        android:layout_alignRight="@+id/switch1"
+        android:layout_alignEnd="@+id/switch1"
+        android:max="200"
+        android:indeterminate="false"
+        android:progress="5" />
+
 </RelativeLayout><!-- From: file:/D:/Documents/GitHub/fff/AndroidTextClientServer-master/AndroidSimpleTextClient1/app/src/main/res/layout/main.xml -->
