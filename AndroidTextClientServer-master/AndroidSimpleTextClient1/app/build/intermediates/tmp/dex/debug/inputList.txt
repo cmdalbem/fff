@@ -1,0 +1,2 @@
+D:\Documents\GitHub\fff\AndroidTextClientServer-master\AndroidSimpleTextClient1\app\build\intermediates\classes\debug
+D:\Documents\GitHub\fff\AndroidTextClientServer-master\AndroidSimpleTextClient1\app\build\intermediates\pre-dexed\debug\support-v4-19.1.0-eb1d42a74334b61c3493cc78524319d5ba66b855.jar
