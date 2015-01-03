@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:text="Send data"
         android:id="@+id/switch1"
-        android:checked="true"
+        android:checked="false"
         android:onClick="onSwitchClicked"
         android:layout_below="@+id/ipAddressField"
         android:layout_centerHorizontal="true"

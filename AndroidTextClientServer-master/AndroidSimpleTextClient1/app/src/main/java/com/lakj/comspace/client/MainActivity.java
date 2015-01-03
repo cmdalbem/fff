@@ -2,7 +2,11 @@ package com.lakj.comspace.client;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import android.app.Activity;
@@ -31,7 +35,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     private Switch aSwitch;
     private SensorManager sManager;
 
-    private static final int REFRESH_RATE_MS = 500;
+    private static final int REFRESH_RATE_MS = 50;
     private static final String DEFAULT_SERVER_ADDRESS = "192.168.43.106";
 
     private float orientX, orientY, orientZ;
@@ -99,23 +103,47 @@ public class MainActivity extends Activity implements SensorEventListener {
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			try {
-				client = new Socket(ipAddressField.getText().toString(), 4444); // connect to the server
-				printwriter = new PrintWriter(client.getOutputStream(), true);
+            String msg = orientX + "," + orientY + "," + orientZ;
+            Log.w("log","Sending message: " + msg);
+            String serverIp = ipAddressField.getText().toString();
 
-                String msg = orientX + "," + orientY + "," + orientZ;
-                Log.w("log","Sending message: " + msg);
-                printwriter.write(msg); // write the message to output stream
+//			try {
+//				client = new Socket(serverIp, 4444); // connect to the server
+//				printwriter = new PrintWriter(client.getOutputStream(), true);
+//
+//                printwriter.write(msg); // write the message to output stream
+//
+//				printwriter.flush();
+//				printwriter.close();
+//				client.close(); // closing the connection
+//
+//			} catch (UnknownHostException e) {
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 
-				printwriter.flush();
-				printwriter.close();
-				client.close(); // closing the connection
+            DatagramSocket ds = null;
+            try {
+                ds = new DatagramSocket();
+                InetAddress serverAddr = InetAddress.getByName(serverIp);
+                DatagramPacket dp;
+                dp = new DatagramPacket(msg.getBytes(), msg.length(), serverAddr, 4444);
+                ds.send(dp);
+            } catch (SocketException e) {
+                e.printStackTrace();
+            }catch (UnknownHostException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (ds != null) {
+                    ds.close();
+                }
+            }
 
-			} catch (UnknownHostException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			return null;
 		}
 
