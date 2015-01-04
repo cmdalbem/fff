@@ -1,5 +1,3 @@
-
-
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -32,8 +30,9 @@ public class Server {
 	
 	private static int delayX=100, delayY=100;
 	
-	private static final int MAX_DELAY_MS = 500;
-	private static final int ANGLE_TRESHOLD = 8;
+	private static final int MAX_DELAY_MS = 1000;
+	private static final int ANGLE_TRESHOLD = 10;
+	private static final int MIN_DELAY = 100;
 	
 	private static final String ROBOT_MODE = "keyboard";
 	//private static final String ROBOT_MODE = "mouse";
@@ -53,25 +52,36 @@ public class Server {
         }
 
         public void run() {
-       	 	while(true) {
-       	 	try {
-           		// Steer right/Steer left
-        		if (orientY < -ANGLE_TRESHOLD) {
-        			robot.keyPress(KeyEvent.VK_A);
-        		}
-        		else if (orientY > ANGLE_TRESHOLD) {
-        			robot.keyPress(KeyEvent.VK_D);
-        		}
-        		
-        		System.out.println("tick1");
-           		
-    			// Sleep
-           		Thread.sleep(delayY);
-    				
-    			} catch (InterruptedException e) {
-    				e.printStackTrace();
-    			}
-       	 	}
+       	 	//while(true) {
+	       	 	try {
+	       	 		int key = 0;
+	       	 		boolean press = false;
+	
+	           		// Steer right/Steer left
+	        		if (orientY < -ANGLE_TRESHOLD) {
+	        			key = KeyEvent.VK_D;
+	        			press = true;
+	        			System.out.println("d "+delayY);
+	        		}
+	        		else if (orientY > ANGLE_TRESHOLD) {
+	        			key = KeyEvent.VK_A;
+	        			press = true;
+	        			System.out.println("a "+delayY);
+	        		}
+	        		
+	        		if (press && delayY > MIN_DELAY) {
+	        			robot.keyPress(key);
+	        			Thread.sleep(delayY);
+	        			robot.keyRelease(key);
+	        		}
+	           		
+	    			// Sleep
+	           		//Thread.sleep(delayY);
+	    				
+	    			} catch (InterruptedException e) {
+	    				e.printStackTrace();
+	    			}
+       	 	//}
         }
     };
 	
@@ -86,50 +96,68 @@ public class Server {
          }
 
          public void run() {
-        	 while(true) {
-        		 try {				
+        	 //while(true) {
+        		 try {
+        			int key = 0;
+        			boolean press = false;
+        			 
              		// Up/Down
      				if (orientX < -ANGLE_TRESHOLD) {
-     					robot.keyPress(KeyEvent.VK_W);
+     					key = KeyEvent.VK_W;
+            			press = true;
+            			System.out.println("w");
+     					
      				}
      				else if (orientX > ANGLE_TRESHOLD) {
-     					robot.keyPress(KeyEvent.VK_S);
+     					key = KeyEvent.VK_S;
+            			press = true;
+            			System.out.println("s");
      				}
      				
-     				System.out.println("tick2");
+     				if (press && delayX > MIN_DELAY) {
+            			robot.keyPress(key);
+            			Thread.sleep(delayX);
+            			robot.keyRelease(key);
+            		}
              		
      				// Sleep
-             		Thread.sleep(delayX);
+             		//Thread.sleep(delayX);
      				
      			} catch (InterruptedException e) {
      				e.printStackTrace();
      			} 
         	 }
         	 
-         }
+        // }
      };
 	 	
 	
-	public static void handleMessage(String msg) {
+	public static void handleMessage(String msg) throws AWTException {
 		// Print the message
 		cal = Calendar.getInstance();;
-		System.out.println(dateFormat.format(cal.getTime()) + " " + msg);
+		//System.out.println(dateFormat.format(cal.getTime()) + " " + msg);
 		
 		// Parse
 		String[] data = msg.split(",");
 		orientX = Float.parseFloat(data[0]);
 		orientY = Float.parseFloat(data[1]);
 		
-		System.out.println("orientX = " + orientX);
-		System.out.println("orientY = " + orientY);
+		//System.out.println("orientX = " + orientX);
+		//System.out.println("orientY = " + orientY);
+		
+		HorizontalControlThread t1 = new HorizontalControlThread();
+		VerticalControlThread t2 = new VerticalControlThread();
 		
 		try {
 			if (ROBOT_MODE=="keyboard") {
-				delayX = (int) Math.abs( ((1-(Math.abs(orientX))/90) * MAX_DELAY_MS) );
-				delayY = (int) Math.abs( ((1-(Math.abs(orientY))/90) * MAX_DELAY_MS) );
+				delayX = (int) Math.abs( (((Math.abs(orientX))/90.) * MAX_DELAY_MS) );
+				delayY = (int) Math.abs( (((Math.abs(orientY))/90.) * MAX_DELAY_MS) );
+				
+				t1.start();
+				t2.start();
 
-				System.out.println("delayX : " + delayX);
-				System.out.println("delayY : " + delayY);
+				/*System.out.println("delayX : " + delayX);
+				System.out.println("delayY : " + delayY);*/
 			}
 			else if (ROBOT_MODE=="mouse") {
 				// Set mouse position instead of simulation key presses
@@ -156,11 +184,11 @@ public class Server {
 	public static void main(String[] args) throws AWTException {
 		System.out.println("Listening to the port 4444");
 		
-		HorizontalControlThread t1 = new HorizontalControlThread();
-		t1.start();
+		//HorizontalControlThread t1 = new HorizontalControlThread();
+		//t1.start();
 		
-		VerticalControlThread t2 = new VerticalControlThread();
-		t2.start();
+		//VerticalControlThread t2 = new VerticalControlThread();
+		//t2.start();
 		
 		while (true) {
 			String message;
