@@ -28,16 +28,87 @@ public class Server {
 	private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	private static Calendar cal;
 	
-	private static float orientX;
-	private static float orientY;
+	private static float orientX, orientY;
+	
+	private static int delayX=100, delayY=100;
 	
 	private static final int MAX_DELAY_MS = 500;
 	private static final int ANGLE_TRESHOLD = 8;
 	
-	private static final String ROBOT_MODE = "mouse";
+	private static final String ROBOT_MODE = "keyboard";
+	//private static final String ROBOT_MODE = "mouse";
 	
 	private static final int SCREEN_WIDTH = 1920;
 	private static final int SCREEN_HEIGHT = 1080;
+	
+	
+	public static final class VerticalControlThread extends Thread {
+
+		private Robot robot;
+		
+		VerticalControlThread() throws AWTException {
+			robot = new Robot();
+       		robot.setAutoDelay(0);
+       		robot.setAutoWaitForIdle(false);
+        }
+
+        public void run() {
+       	 	while(true) {
+       	 	try {
+           		// Steer right/Steer left
+        		if (orientY < -ANGLE_TRESHOLD) {
+        			robot.keyPress(KeyEvent.VK_A);
+        		}
+        		else if (orientY > ANGLE_TRESHOLD) {
+        			robot.keyPress(KeyEvent.VK_D);
+        		}
+        		
+        		System.out.println("tick1");
+           		
+    			// Sleep
+           		Thread.sleep(delayY);
+    				
+    			} catch (InterruptedException e) {
+    				e.printStackTrace();
+    			}
+       	 	}
+        }
+    };
+	
+    public static final class HorizontalControlThread extends Thread{
+    	
+		private Robot robot;
+
+		 HorizontalControlThread() throws AWTException {
+			robot = new Robot();
+			robot.setAutoDelay(0);
+			robot.setAutoWaitForIdle(false);
+         }
+
+         public void run() {
+        	 while(true) {
+        		 try {				
+             		// Up/Down
+     				if (orientX < -ANGLE_TRESHOLD) {
+     					robot.keyPress(KeyEvent.VK_W);
+     				}
+     				else if (orientX > ANGLE_TRESHOLD) {
+     					robot.keyPress(KeyEvent.VK_S);
+     				}
+     				
+     				System.out.println("tick2");
+             		
+     				// Sleep
+             		Thread.sleep(delayX);
+     				
+     			} catch (InterruptedException e) {
+     				e.printStackTrace();
+     			} 
+        	 }
+        	 
+         }
+     };
+	 	
 	
 	public static void handleMessage(String msg) {
 		// Print the message
@@ -54,36 +125,11 @@ public class Server {
 		
 		try {
 			if (ROBOT_MODE=="keyboard") {
-				Robot robotX = new Robot();
-				Robot robotY = new Robot();
-
-				int delayX = (int) Math.abs( ((1-(Math.abs(orientX))/90) * MAX_DELAY_MS) );
-				int delayY = (int) Math.abs( ((1-(Math.abs(orientY))/90) * MAX_DELAY_MS) );
+				delayX = (int) Math.abs( ((1-(Math.abs(orientX))/90) * MAX_DELAY_MS) );
+				delayY = (int) Math.abs( ((1-(Math.abs(orientY))/90) * MAX_DELAY_MS) );
 
 				System.out.println("delayX : " + delayX);
 				System.out.println("delayY : " + delayY);
-
-				robotX.setAutoDelay(delayX);
-				robotX.setAutoWaitForIdle(false);
-
-				robotY.setAutoDelay(delayY);
-				robotY.setAutoWaitForIdle(false);
-					
-				// Up/Down
-				if (orientX < -ANGLE_TRESHOLD) {
-					robotX.keyPress(KeyEvent.VK_W);
-				}
-				else if (orientX > ANGLE_TRESHOLD) {
-					robotX.keyPress(KeyEvent.VK_S);
-				}
-
-				// Steer right/Steer left
-				if (orientY < -ANGLE_TRESHOLD) {
-					robotY.keyPress(KeyEvent.VK_A);
-				}
-				else if (orientY > ANGLE_TRESHOLD) {
-					robotY.keyPress(KeyEvent.VK_D);
-				}
 			}
 			else if (ROBOT_MODE=="mouse") {
 				// Set mouse position instead of simulation key presses
@@ -107,8 +153,14 @@ public class Server {
 	// UDP Version //
 	/////////////////
 	
-	public static void main(String[] args) {
-		System.out.println("sssListening to the port 4444");
+	public static void main(String[] args) throws AWTException {
+		System.out.println("Listening to the port 4444");
+		
+		HorizontalControlThread t1 = new HorizontalControlThread();
+		t1.start();
+		
+		VerticalControlThread t2 = new VerticalControlThread();
+		t2.start();
 		
 		while (true) {
 			String message;

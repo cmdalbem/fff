@@ -78,8 +78,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         aSwitch = (Switch) findViewById(R.id.switch1);
 
-//        aSeekBar = (SeekBar) findViewById((R.id.seekBar));
-//        aSeekBar.setProgress(refreshRateMs);
+        aSeekBar = (SeekBar) findViewById((R.id.seekBar));
+        aSeekBar.setProgress(refreshRateMs);
 
         mHandler.sendEmptyMessageDelayed(0, refreshRateMs);
 
