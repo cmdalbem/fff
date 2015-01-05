@@ -21,9 +21,9 @@ import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -35,8 +35,10 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     private TextView aTextView;
     private Switch aSwitch;
-    private SeekBar aSeekBar;
+    private Button accButton1, accButton2;
     private SensorManager sManager;
+
+    private ProgressBar leftProgBar, rightProgBar, upProgBar, downProgBar;
 
     private static int refreshRateMs = 20;
     private static final String DEFAULT_SERVER_ADDRESS = "192.168.43.106";
@@ -44,10 +46,9 @@ public class MainActivity extends Activity implements SensorEventListener {
     private float orientX, orientY, orientZ;
 
     // Handler for the delayed messages, which will work as a timer
-    private Handler mHandler = new Handler() {
+    private Handler timer = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            // Do task here
             SendMessage sendMessageTask = new SendMessage();
             sendMessageTask.execute();
 
@@ -55,7 +56,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 
             // Order new refresh
             if(aSwitch.isChecked()) {
-                mHandler.sendEmptyMessageDelayed(0, refreshRateMs);
+                timer.sendEmptyMessageDelayed(0, refreshRateMs);
             }
         }
     };
@@ -78,20 +79,35 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         aSwitch = (Switch) findViewById(R.id.switch1);
 
-        aSeekBar = (SeekBar) findViewById((R.id.seekBar));
-        aSeekBar.setProgress(refreshRateMs);
+        leftProgBar = (ProgressBar) findViewById(R.id.leftProgBar);
+        rightProgBar = (ProgressBar) findViewById(R.id.rightProgBar);
+        upProgBar = (ProgressBar) findViewById(R.id.upProgBar);
+        downProgBar = (ProgressBar) findViewById(R.id.downProgBar);
 
-        mHandler.sendEmptyMessageDelayed(0, refreshRateMs);
+        leftProgBar.setRotation(180);
+        upProgBar.setRotation(270);
+        downProgBar.setRotation(90);
 
+//        aSeekBar = (SeekBar) findViewById((R.id.seekBar));
+//        aSeekBar.setProgress(refreshRateMs);
 
-//        upButton = (Button) findViewById(R.id.upArrow);
-//        upButton.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                messsage = "up";
-//                SendMessage sendMessageTask = new SendMessage();
-//                sendMessageTask.execute();
-//            }
-//        });
+        timer.sendEmptyMessageDelayed(0, refreshRateMs);
+
+        accButton1 = (Button) findViewById(R.id.accButton1);
+        accButton1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                SendMessage sendMessageTask = new SendMessage();
+                sendMessageTask.execute("acc");
+            }
+        });
+
+        accButton2 = (Button) findViewById(R.id.accButton2);
+        accButton2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                SendMessage sendMessageTask = new SendMessage();
+                sendMessageTask.execute("acc");
+            }
+        });
     }
 
     public void onSwitchClicked(View view) {
@@ -99,20 +115,29 @@ public class MainActivity extends Activity implements SensorEventListener {
         boolean on = ((Switch) view).isChecked();
 
         if (on) {
-            mHandler.sendEmptyMessageDelayed(0, refreshRateMs);
+            timer.sendEmptyMessageDelayed(0, refreshRateMs);
         } else {
             // Nothing.
         }
     }
 
-	private class SendMessage extends AsyncTask<Void, Void, Void> {
+	private class SendMessage extends AsyncTask<String, Void, Void> {
 
 		@Override
-		protected Void doInBackground(Void... params) {
-            String msg = orientX + "," + orientY + "," + orientZ;
+		protected Void doInBackground(String... params) {
+            String msg;
+
+            if(params.length==0) {
+                msg = orientX + "," + orientY + "," + orientZ;
+            }
+            else {
+                msg = params[0];
+            }
+
             Log.w("log","Sending message: " + msg);
             String serverIp = ipAddressField.getText().toString();
 
+            // TCP
 //			try {
 //				client = new Socket(serverIp, 4444); // connect to the server
 //				printwriter = new PrintWriter(client.getOutputStream(), true);
@@ -129,6 +154,7 @@ public class MainActivity extends Activity implements SensorEventListener {
 //				e.printStackTrace();
 //			}
 
+            // Send UDP packet
             DatagramSocket ds = null;
             try {
                 ds = new DatagramSocket();
@@ -136,12 +162,6 @@ public class MainActivity extends Activity implements SensorEventListener {
                 DatagramPacket dp;
                 dp = new DatagramPacket(msg.getBytes(), msg.length(), serverAddr, 4444);
                 ds.send(dp);
-            } catch (SocketException e) {
-                e.printStackTrace();
-            }catch (UnknownHostException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -191,7 +211,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event)
     {
-        //if sensor is unreliable, return void
+        // If sensor is unreliable, return void
         if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
             return;
         }
@@ -200,10 +220,32 @@ public class MainActivity extends Activity implements SensorEventListener {
         orientY = event.values[1];
         orientZ = event.values[0];
 
-        //else it will output the Roll, Pitch and Yawn values
+        // Show values on TextView
         aTextView.setText("Orientation X (Roll) :" + Float.toString(orientX) + "\n" +
                 "Orientation Y (Pitch) :" + Float.toString(orientY) + "\n" +
                 "Orientation Z (Yaw) :" + Float.toString(orientZ));
+
+        // Show values on ProgressBars
+        int progressY = (int) Math.abs(orientY/90 * 100);
+        int progressX = (int) Math.abs(orientX/90 * 100);
+
+        if(orientY >= 0) {
+            leftProgBar.setProgress(progressY);
+            rightProgBar.setProgress(0);
+        }
+        else {
+            leftProgBar.setProgress(0);
+            rightProgBar.setProgress(progressY);
+        }
+
+        if(orientX >= 0) {
+            upProgBar.setProgress(0);
+            downProgBar.setProgress(progressX);
+        }
+        else {
+            upProgBar.setProgress(progressX);
+            downProgBar.setProgress(0);
+        }
     }
 
 }
