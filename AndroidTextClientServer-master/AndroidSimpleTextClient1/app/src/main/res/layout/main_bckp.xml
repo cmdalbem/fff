@@ -1,0 +1,115 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".SlimpleTextClientActivity" >
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ipAddressField"
+        android:text="127.0.0.1"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/upProgBar"
+        android:layout_toStartOf="@+id/upProgBar" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/aTextView"
+        android:layout_above="@+id/leftProgBar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send data"
+        android:id="@+id/switch1"
+        android:checked="false"
+        android:onClick="onSwitchClicked"
+        android:layout_alignBottom="@+id/ipAddressField"
+        android:layout_alignLeft="@+id/rightProgBar"
+        android:layout_alignStart="@+id/rightProgBar" />
+
+    <TextView
+        android:text="Server IP Address:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_alignTop="@+id/switch1"
+        android:layout_toLeftOf="@+id/ipAddressField"
+        android:layout_toStartOf="@+id/ipAddressField" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Acceleration"
+        android:id="@+id/boostButton"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:height="100dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Acceleration"
+        android:id="@+id/brakeButton"
+        android:height="100dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rightProgBar"
+        android:max="100"
+        android:indeterminate="false"
+        android:minWidth="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/boostButton"
+        android:layout_toStartOf="@+id/boostButton" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/leftProgBar"
+        android:max="100"
+        android:indeterminate="false"
+        android:minWidth="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/brakeButton"
+        android:layout_toEndOf="@+id/brakeButton" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/upProgBar"
+        android:minWidth="80dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:layout_alignTop="@+id/boostButton"
+        android:layout_centerHorizontal="true" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/downProgBar"
+        android:minWidth="80dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:layout_below="@+id/boostButton"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

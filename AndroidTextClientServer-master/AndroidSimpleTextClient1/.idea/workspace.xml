@@ -23,6 +23,12 @@
           <theme>@style/AppTheme</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/main_bckp.xml">
+        <config>
+          <state>Landscape</state>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
     </layouts>
   </component>
   <component name="AndroidLogFilters">
@@ -54,14 +60,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lakj/comspace/client/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1292" max-vertical-offset="3723">
-              <caret line="132" column="18" selection-start-line="132" selection-start-column="18" selection-end-line="132" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.32130584" vertical-offset="952" max-vertical-offset="3723">
+              <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
               <folding>
-                <element signature="e#1455#1838#0" expanded="true" />
-                <element signature="e#1831#1832#0" expanded="true" />
+                <element signature="e#1356#1739#0" expanded="true" />
+                <element signature="e#1732#1733#0" expanded="true" />
                 <element signature="method#onSwitchClicked#0;class#MainActivity#0" expanded="false" />
               </folding>
             </state>
@@ -88,15 +94,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="main.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/main.xml">
           <provider editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2040">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2805">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
           <provider selected="true" editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main_bckp.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/main_bckp.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="2040">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
             <state />
           </provider>
         </entry>
@@ -658,8 +677,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/lakj/comspace/client/SlimpleTextClientActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/prefs.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lakj/comspace/client/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lakj/comspace/client/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -879,6 +898,9 @@
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteToolWindowManager.SHOW" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Documents\GitHub\fff\AndroidTextClientServer-master\AndroidSimpleTextClient1\app\src\main\res\layout" />
+    </key>
     <key name="android.template.packageName">
       <recent name="com.lakj.comspace.simpletextclient" />
     </key>
@@ -1091,6 +1113,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893288" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1100,7 +1123,7 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893288" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3058306" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32893288" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32893288" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1175,8 +1198,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3842">
           <caret line="120" column="12" selection-start-line="120" selection-start-column="12" selection-end-line="120" selection-end-column="12" />
           <folding>
-            <element signature="e#1455#1838#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
+            <element signature="e#1356#1739#0" expanded="true" />
+            <element signature="e#1732#1733#0" expanded="true" />
             <element signature="method#onSwitchClicked#0;class#MainActivity#0" expanded="false" />
           </folding>
         </state>
@@ -1214,8 +1237,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="3655">
           <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
           <folding>
-            <element signature="e#1455#1838#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
+            <element signature="e#1356#1739#0" expanded="true" />
+            <element signature="e#1732#1733#0" expanded="true" />
             <element signature="method#onSwitchClicked#0;class#MainActivity#0" expanded="false" />
           </folding>
         </state>
@@ -1253,8 +1276,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="94" max-vertical-offset="3604">
           <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
           <folding>
-            <element signature="e#1455#1838#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
+            <element signature="e#1356#1739#0" expanded="true" />
+            <element signature="e#1732#1733#0" expanded="true" />
             <element signature="method#onSwitchClicked#0;class#MainActivity#0" expanded="false" />
           </folding>
         </state>
@@ -1292,8 +1315,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3655">
           <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
           <folding>
-            <element signature="e#1455#1838#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
+            <element signature="e#1356#1739#0" expanded="true" />
+            <element signature="e#1732#1733#0" expanded="true" />
             <element signature="method#onSwitchClicked#0;class#MainActivity#0" expanded="false" />
           </folding>
         </state>
@@ -1331,8 +1354,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="969" max-vertical-offset="3655">
           <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
           <folding>
-            <element signature="e#1455#1838#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
+            <element signature="e#1356#1739#0" expanded="true" />
+            <element signature="e#1732#1733#0" expanded="true" />
             <element signature="method#onSwitchClicked#0;class#MainActivity#0" expanded="false" />
           </folding>
         </state>
@@ -1370,8 +1393,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="3094">
           <caret line="31" column="27" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="27" />
           <folding>
-            <element signature="e#1455#1838#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
+            <element signature="e#1356#1739#0" expanded="true" />
+            <element signature="e#1732#1733#0" expanded="true" />
             <element signature="method#onSwitchClicked#0;class#MainActivity#0" expanded="false" />
           </folding>
         </state>
@@ -1401,8 +1424,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="3094">
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding>
-            <element signature="e#1455#1838#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
+            <element signature="e#1356#1739#0" expanded="true" />
+            <element signature="e#1732#1733#0" expanded="true" />
             <element signature="method#onSwitchClicked#0;class#MainActivity#0" expanded="false" />
           </folding>
         </state>
@@ -1432,8 +1455,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="819" max-vertical-offset="3094">
           <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding>
-            <element signature="e#1455#1838#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
+            <element signature="e#1356#1739#0" expanded="true" />
+            <element signature="e#1732#1733#0" expanded="true" />
             <element signature="method#onSwitchClicked#0;class#MainActivity#0" expanded="false" />
           </folding>
         </state>
@@ -1463,8 +1486,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="918" max-vertical-offset="1496">
           <caret line="54" column="4" selection-start-line="54" selection-start-column="4" selection-end-line="54" selection-end-column="4" />
           <folding>
-            <element signature="e#1455#1838#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
+            <element signature="e#1356#1739#0" expanded="true" />
+            <element signature="e#1732#1733#0" expanded="true" />
             <element signature="method#onSwitchClicked#0;class#MainActivity#0" expanded="false" />
           </folding>
         </state>
@@ -1486,8 +1509,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1309">
           <caret line="32" column="43" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
           <folding>
-            <element signature="e#1455#1838#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
+            <element signature="e#1356#1739#0" expanded="true" />
+            <element signature="e#1732#1733#0" expanded="true" />
             <element signature="method#onSwitchClicked#0;class#MainActivity#0" expanded="false" />
           </folding>
         </state>
@@ -1498,8 +1521,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="1309">
           <caret line="25" column="36" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
           <folding>
-            <element signature="e#1455#1838#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
+            <element signature="e#1356#1739#0" expanded="true" />
+            <element signature="e#1732#1733#0" expanded="true" />
             <element signature="method#onSwitchClicked#0;class#MainActivity#0" expanded="false" />
           </folding>
         </state>
@@ -1510,8 +1533,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1309">
           <caret line="25" column="36" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
           <folding>
-            <element signature="e#1455#1838#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
+            <element signature="e#1356#1739#0" expanded="true" />
+            <element signature="e#1732#1733#0" expanded="true" />
             <element signature="method#onSwitchClicked#0;class#MainActivity#0" expanded="false" />
           </folding>
         </state>
@@ -1540,16 +1563,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lakj/comspace/client/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/main_bckp.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1292" max-vertical-offset="3723">
-          <caret line="132" column="18" selection-start-line="132" selection-start-column="18" selection-end-line="132" selection-end-column="18" />
-          <folding>
-            <element signature="e#1455#1838#0" expanded="true" />
-            <element signature="e#1831#1832#0" expanded="true" />
-            <element signature="method#onSwitchClicked#0;class#MainActivity#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2040">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/main.xml">
@@ -1561,6 +1583,18 @@
       </provider>
       <provider selected="true" editor-type-id="android-designer">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lakj/comspace/client/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32130584" vertical-offset="952" max-vertical-offset="3723">
+          <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <folding>
+            <element signature="e#1356#1739#0" expanded="true" />
+            <element signature="e#1732#1733#0" expanded="true" />
+            <element signature="method#onSwitchClicked#0;class#MainActivity#0" expanded="false" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>

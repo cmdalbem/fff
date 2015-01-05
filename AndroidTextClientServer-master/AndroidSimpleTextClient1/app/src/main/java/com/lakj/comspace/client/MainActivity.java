@@ -1,13 +1,10 @@
 package com.lakj.comspace.client;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 
 import android.app.Activity;
 import android.hardware.Sensor;
@@ -93,19 +90,19 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         timer.sendEmptyMessageDelayed(0, refreshRateMs);
 
-        accButton1 = (Button) findViewById(R.id.accButton1);
+        accButton1 = (Button) findViewById(R.id.brakeButton);
         accButton1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SendMessage sendMessageTask = new SendMessage();
-                sendMessageTask.execute("acc");
+                sendMessageTask.execute("brake");
             }
         });
 
-        accButton2 = (Button) findViewById(R.id.accButton2);
+        accButton2 = (Button) findViewById(R.id.boostButton);
         accButton2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SendMessage sendMessageTask = new SendMessage();
-                sendMessageTask.execute("acc");
+                sendMessageTask.execute("boost");
             }
         });
     }
