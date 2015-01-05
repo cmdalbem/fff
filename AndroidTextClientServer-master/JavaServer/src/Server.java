@@ -40,96 +40,121 @@ public class Server {
 	private static final int SCREEN_WIDTH = 1920;
 	private static final int SCREEN_HEIGHT = 1080;
 	
+	private static final boolean PRINT_KEYS = true;
 	
-	public static final class VerticalControlThread extends Thread {
+	
+	public static final class HorizontalControlThread extends Thread {
 
 		private Robot robot;
 		
-		VerticalControlThread() throws AWTException {
+		HorizontalControlThread() throws AWTException {
 			robot = new Robot();
        		robot.setAutoDelay(0);
        		robot.setAutoWaitForIdle(false);
         }
 
         public void run() {
-       	 	//while(true) {
-	       	 	try {
-	       	 		int key = 0;
-	       	 		boolean press = false;
+	   	 	try {
+	   	 		int key = 0;
+	   	 		boolean press = false;
 	
-	           		// Steer right/Steer left
-	        		if (orientY < -ANGLE_TRESHOLD) {
-	        			key = KeyEvent.VK_D;
-	        			press = true;
-	        			System.out.println("d "+delayY);
-	        		}
-	        		else if (orientY > ANGLE_TRESHOLD) {
-	        			key = KeyEvent.VK_A;
-	        			press = true;
-	        			System.out.println("a "+delayY);
-	        		}
-	        		
-	        		if (press && delayY > MIN_DELAY) {
-	        			robot.keyPress(key);
-	        			Thread.sleep(delayY);
-	        			robot.keyRelease(key);
-	        		}
-	           		
-	    			// Sleep
-	           		//Thread.sleep(delayY);
-	    				
-	    			} catch (InterruptedException e) {
-	    				e.printStackTrace();
-	    			}
-       	 	//}
+	    		if (orientY < -ANGLE_TRESHOLD) {
+	    			key = KeyEvent.VK_D;
+	    			press = true;
+	    			if(PRINT_KEYS) System.out.println("d");
+	    		}
+	    		else if (orientY > ANGLE_TRESHOLD) {
+	    			key = KeyEvent.VK_A;
+	    			press = true;
+	    			if(PRINT_KEYS) System.out.println("a");
+	    		}
+	    		
+	    		if (press && delayY > MIN_DELAY) {
+	    			robot.keyPress(key);
+	    			Thread.sleep(delayY);
+	    			robot.keyRelease(key);
+	    		}
+					
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
         }
     };
-	
-    public static final class HorizontalControlThread extends Thread{
+    
+    public static final class VerticalControlThread extends Thread{
     	
 		private Robot robot;
 
-		 HorizontalControlThread() throws AWTException {
+		VerticalControlThread() throws AWTException {
 			robot = new Robot();
 			robot.setAutoDelay(0);
 			robot.setAutoWaitForIdle(false);
          }
 
          public void run() {
-        	 //while(true) {
-        		 try {
-        			int key = 0;
-        			boolean press = false;
-        			 
-             		// Up/Down
-     				if (orientX < -ANGLE_TRESHOLD) {
-     					key = KeyEvent.VK_W;
-            			press = true;
-            			System.out.println("w");
-     					
-     				}
-     				else if (orientX > ANGLE_TRESHOLD) {
-     					key = KeyEvent.VK_S;
-            			press = true;
-            			System.out.println("s");
-     				}
-     				
-     				if (press && delayX > MIN_DELAY) {
-            			robot.keyPress(key);
-            			Thread.sleep(delayX);
-            			robot.keyRelease(key);
-            		}
-             		
-     				// Sleep
-             		//Thread.sleep(delayX);
-     				
-     			} catch (InterruptedException e) {
-     				e.printStackTrace();
-     			} 
-        	 }
-        	 
-        // }
+    		try {
+    			int key = 0;
+    			boolean press = false;
+    			 
+ 				if (orientX < -ANGLE_TRESHOLD) {
+ 					key = KeyEvent.VK_W;
+        			press = true;
+        			if(PRINT_KEYS) System.out.println("w");
+ 					
+ 				}
+ 				else if (orientX > ANGLE_TRESHOLD) {
+ 					key = KeyEvent.VK_S;
+        			press = true;
+        			if(PRINT_KEYS) System.out.println("s");
+ 				}
+ 				
+ 				if (press && delayX > MIN_DELAY) {
+        			robot.keyPress(key);
+        			Thread.sleep(delayX);
+        			robot.keyRelease(key);
+        		}
+ 				
+ 			} catch (InterruptedException e) {
+ 				e.printStackTrace();
+ 			} 
+    	 }
      };
+     
+     public static final class AccelerationControllerThread extends Thread{
+     	
+ 		private Robot robot;
+
+ 		AccelerationControllerThread() throws AWTException {
+ 			robot = new Robot();
+ 			robot.setAutoDelay(50);
+ 			robot.setAutoWaitForIdle(false);
+          }
+
+          public void run() {
+     		int key = KeyEvent.VK_SHIFT;
+         	robot.keyPress(key);
+         	System.out.println("shift");
+         	robot.keyRelease(key);
+     	 }
+      };
+      
+      public static final class BrakeControllerThread extends Thread{
+       	
+   		private Robot robot;
+
+   		BrakeControllerThread() throws AWTException {
+   			robot = new Robot();
+   			robot.setAutoDelay(50);
+   			robot.setAutoWaitForIdle(false);
+            }
+
+            public void run() {
+       		int key = KeyEvent.VK_SPACE;
+           	robot.keyPress(key);
+           	System.out.println("space");
+           	robot.keyRelease(key);
+       	 }
+        };
 	 	
 	
 	public static void handleMessage(String msg) throws AWTException {
@@ -138,17 +163,29 @@ public class Server {
 		//System.out.println(dateFormat.format(cal.getTime()) + " " + msg);
 		
 		// Parse
-		String[] data = msg.split(",");
-		orientX = Float.parseFloat(data[0]);
-		orientY = Float.parseFloat(data[1]);
-		
-		//System.out.println("orientX = " + orientX);
-		//System.out.println("orientY = " + orientY);
-		
-		HorizontalControlThread t1 = new HorizontalControlThread();
-		VerticalControlThread t2 = new VerticalControlThread();
-		
-		try {
+		if (msg.equals("boost")) {
+			if (ROBOT_MODE=="keyboard") {
+				AccelerationControllerThread th = new AccelerationControllerThread();
+				th.start();
+			}
+		}
+		else if (msg.equals("brake")) {
+			if (ROBOT_MODE=="keyboard") {
+				BrakeControllerThread th = new BrakeControllerThread();
+				th.start();
+			}
+		}		
+		else {
+			String[] data = msg.split(",");
+			orientX = Float.parseFloat(data[0]);
+			orientY = Float.parseFloat(data[1]);
+			
+			//System.out.println("orientX = " + orientX);
+			//System.out.println("orientY = " + orientY);
+			
+			HorizontalControlThread t1 = new HorizontalControlThread();
+			VerticalControlThread t2 = new VerticalControlThread();
+			
 			if (ROBOT_MODE=="keyboard") {
 				delayX = (int) Math.abs( (((Math.abs(orientX))/90.) * MAX_DELAY_MS) );
 				delayY = (int) Math.abs( (((Math.abs(orientY))/90.) * MAX_DELAY_MS) );
@@ -169,10 +206,7 @@ public class Server {
 	 
 				robot.mouseMove(x,y);
 			}
-			
-        } catch (AWTException ex) {
-            //...
-        }
+		}
 		
 	}
 
@@ -183,12 +217,6 @@ public class Server {
 	
 	public static void main(String[] args) throws AWTException {
 		System.out.println("Listening to the port 4444");
-		
-		//HorizontalControlThread t1 = new HorizontalControlThread();
-		//t1.start();
-		
-		//VerticalControlThread t2 = new VerticalControlThread();
-		//t2.start();
 		
 		while (true) {
 			String message;
